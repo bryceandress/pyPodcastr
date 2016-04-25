@@ -35,16 +35,17 @@ for podcast in podcasts:
     lastdownloaded = f.readlines()
     f.close()
   except:
-    for key in feed["entries"]:
-      print("Downloading: ", key["title"])
-      urllib.request.urlretrieve(key["link"], "/home/bryce/Podcasts/" + feed.feed.title + "/" + key["title"] + ".mp3")
-      f = open(".lastdownloaded", "a")
-      f.write(key["title"] + "\n")
-      f.close()
-      break
-    f = open(".lastdownloaded", "r")
-    lastdownloaded = f.readlines()
-    f.close
+    lastdownloaded = []
+    #for key in feed["entries"]:
+     # print("Downloading: ", key["title"])
+      #urllib.request.urlretrieve(key["link"], "/home/bryce/Podcasts/" + feed.feed.title + "/" + key["title"] + ".mp3")
+      #break
+    #f = open(".lastdownloaded", "a")
+    #f.write(key["title"] + "\n")
+    #f.close()
+    #f = open(".lastdownloaded", "r")
+    #lastdownloaded = f.readlines()
+    #f.close
   
   for key in feed["entries"]:
     if (key["title"] + "\n") in lastdownloaded:
@@ -55,6 +56,7 @@ for podcast in podcasts:
       f = open(".lastdownloaded", "a")
       f.write(key["title"] + "\n")
       f.close()
+      break
 
 print("Podcasts are up to date")
 
