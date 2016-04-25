@@ -3,11 +3,6 @@ import urllib
 import os
 import sys
 
-#Read what podcasts to download
-f = open(".podcasts.pod", "r")
-podcasts = f.readlines()
-f.close()
-
 try:
   if sys.argv[1] == "--add":
     podcasts.append(str(sys.argv[2])+"\n")
@@ -19,6 +14,11 @@ try:
     print("Starting")
 except:
   print("Starting")
+
+#Read what podcasts to download
+f = open(".podcasts.pod", "r")
+podcasts = f.readlines()
+f.close()
 
 #For all the podcasts download the latest
 #if the latest is not in the .lastdownload file
@@ -36,16 +36,6 @@ for podcast in podcasts:
     f.close()
   except:
     lastdownloaded = []
-    #for key in feed["entries"]:
-     # print("Downloading: ", key["title"])
-      #urllib.request.urlretrieve(key["link"], "/home/bryce/Podcasts/" + feed.feed.title + "/" + key["title"] + ".mp3")
-      #break
-    #f = open(".lastdownloaded", "a")
-    #f.write(key["title"] + "\n")
-    #f.close()
-    #f = open(".lastdownloaded", "r")
-    #lastdownloaded = f.readlines()
-    #f.close
   
   for key in feed["entries"]:
     if (key["title"] + "\n") in lastdownloaded:
@@ -56,7 +46,7 @@ for podcast in podcasts:
       f = open(".lastdownloaded", "a")
       f.write(key["title"] + "\n")
       f.close()
-      break
+    break
 
 print("Podcasts are up to date")
 
