@@ -1,7 +1,12 @@
+#!/usr/bin/env python3
 import feedparser
 import urllib
 import os
 import sys
+
+
+
+podcastdir = os.getenv("HOME")+"/Podcasts/"
 
 try:
   if sys.argv[1] == "--add":
@@ -15,19 +20,26 @@ try:
 except:
   print("Starting")
 
-#Read what podcasts to download
-f = open(".podcasts.pod", "r")
-podcasts = f.readlines()
-f.close()
+#try to read what podcasts to download
+try:
+  f = open(".podcasts.pod", "r")
+  podcasts = f.readlines()
+  f.close()
+except:
+  print("Please add some podcasts to catch")
+  sys.exit()
 
 #For all the podcasts download the latest
 #if the latest is not in the .lastdownload file
 #if it is just skip
 for podcast in podcasts:
   feed = feedparser.parse(podcast)
+  #Make sure there is a podcast folder
+  if not(os.path.exists(podcastdir)):
+    os.mkdir(podcastdir)
   #Make correct podcast directories
-  if not (os.path.exists("/home/bryce/Podcasts/" + feed.feed.title + "/")):
-    os.mkdir("/home/bryce/Podcasts/" + feed.feed.title + "/")
+  if not (os.path.exists(podcastdir + feed.feed.title + "/")):
+    os.mkdir(podcastdir + feed.feed.title + "/")
   
   #Try to read in last downloaded files
   try:
@@ -42,7 +54,7 @@ for podcast in podcasts:
       print(key["title"] + " already downloaded...skipping")
     else:
       print("Downloading: ", key["title"])
-      urllib.request.urlretrieve(key["link"], "/home/bryce/Podcasts/" + feed.feed.title + "/" + key["title"] + ".mp3")
+      urllib.request.urlretrieve(key["link"], podcastdir + feed.feed.title + "/" + key["title"] + ".mp3")
       f = open(".lastdownloaded", "a")
       f.write(key["title"] + "\n")
       f.close()
