@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import feedparser
 import urllib
 import os
@@ -6,27 +7,30 @@ import sys
 
 podcastdir = os.getenv("HOME")+"/Podcasts/"
 
-#Add a podcast
-try:
-  if sys.argv[1] == "--add":
-    podcasts.append(str(sys.argv[2])+"\n")
-    f = open(".podcasts.pod", "w")
-    for line in podcasts:
-      f.write(line)
-    f.close()
-    
-    print("Starting")
-except:
-  print("Starting")
-
 #try to read what podcasts to download
 try:
   f = open(".podcasts.pod", "r")
   podcasts = f.readlines()
   f.close()
 except:
-  print("Please add some podcasts to catch")
-  sys.exit()
+  f = open(".podcasts.pod", "w")
+  f.close()
+
+#Add a podcast
+try:
+  if sys.argv[1] == "--add":
+    f = open(".podcasts.pod", "r")
+    podcasts = f.readlines()
+    f.close()
+    podcasts.append(str(sys.argv[2]+"\n"))
+    f = open(".podcasts.pod", "w")
+    for line in podcasts:
+      f.write(line)
+    f.close()
+  print("Starting")
+
+except:
+  print("Starting")
 
 #For all the podcasts download the latest
 #if the latest is not in the .lastdownload file

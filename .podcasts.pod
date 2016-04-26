@@ -1,5 +1,0 @@
-http://podcast.securityweekly.com/rss
-http://feeds.feedburner.com/TheLinuxActionShow
-http://hackerpublicradio.org/hpr_rss.php
-http://feeds.feedburner.com/linuxunplugged
-http://atp.fm/episodes?format=rss
