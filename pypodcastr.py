@@ -8,11 +8,11 @@ import sys
 podcastdir = os.getenv("HOME")+"/Podcasts/"
 
 #try to read what podcasts to download
-try:
+if os.path.isfile(".podcasts.pod"):
   f = open(".podcasts.pod", "r")
   podcasts = f.readlines()
   f.close()
-except:
+else:
   f = open(".podcasts.pod", "w")
   f.close()
 
